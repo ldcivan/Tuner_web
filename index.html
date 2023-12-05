@@ -216,11 +216,13 @@
             for (var note in standardFrequencies) {
                 standardFrequenciesList.push(standardFrequencies[note]);
             }
+            document.getElementById('a4-frequency').innerHTML = standardA4;
+            document.getElementById('a4-input').value = standardA4;
         }
-        frequencyInit();
         
 
         window.onload = function() {
+            frequencyInit();
             // 获取音频流
             navigator.mediaDevices.getUserMedia({ audio: true })
                 .then(function(stream) {
@@ -383,6 +385,11 @@
     </script>
 </head>
 <body>
+    <div class="a4-adjust" style="position:absolute;z-index:999;">A4 = <span id="a4-frequency" style="color:red;" onclick="document.getElementById('pop').style.display='flex';"></span> Hz</div>
+    <div id="pop" style="position:absolute;border:1px solid gray;padding:5px;display:none;width:250px;z-index:9999;margin-top:40px;">
+        <input id="a4-input" type="number" placeholder style="margin:auto;">
+        <button style="margin:auto;" onclick="frequencyInit(parseInt(document.getElementById('a4-input').value));document.getElementById('pop').style.display='none';">OK</button>
+    </div>
     <div id="content">
     <h1>Tuner</h1>
     <!--<div id="frequency">当前频率：- Hz</div>
